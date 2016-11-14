@@ -42,6 +42,7 @@ namespace mafiaWPF
 
             var newPlayer = AddPlayerToCurr();
             
+            if (newPlayer != null)
             CurrPlayers.Add(newPlayer);
         }
 
@@ -49,8 +50,17 @@ namespace mafiaWPF
         {
             Player currPlayer = null;
 
-            AllPlayers.FirstOrDefault(p => p.Nick == playerNikCB.Text);
-
+            currPlayer = AllPlayers.FirstOrDefault(p => p.Nick == playerNikTB.Text);
+            if (currPlayer == null)
+            {
+                MessageBox.Show("Такого игрока нет в базе");
+                return null;
+            }
+            if (CurrPlayers.Contains(currPlayer))
+            {
+                MessageBox.Show("Уже добавили в игру");
+                return null;
+            }
             return currPlayer;
         }
 
@@ -69,7 +79,7 @@ namespace mafiaWPF
         private string lastinput = "";
         private void playerNikTB_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+
         }
 
         private void playerNikCB_TextInput(object sender, TextCompositionEventArgs e)
