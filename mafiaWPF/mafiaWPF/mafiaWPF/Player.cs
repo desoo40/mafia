@@ -17,9 +17,10 @@ namespace mafiaWPF
                 return _nick;
             }
         }
-
-        public bool Mvp { get; set; }
         public WhoIs Type { get; set; }
+        public bool Mvp { get; set; }
+        public decimal DeltaCarma { get; set; }
+
         public decimal MainRate;
         public decimal PowerRate;
         public decimal Carma;

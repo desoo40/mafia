@@ -50,7 +50,7 @@ namespace mafiaWPF
         {
             Player currPlayer = null;
 
-            currPlayer = AllPlayers.FirstOrDefault(p => p.Nick == playerNikTB.Text);
+            currPlayer = AllPlayers.FirstOrDefault(p => p.Nick == playerNikCB.Text);
             if (currPlayer == null)
             {
                 MessageBox.Show("Такого игрока нет в базе");
@@ -74,6 +74,9 @@ namespace mafiaWPF
 
             if (e.PropertyName == "Mvp")
                 e.Column.Header = "MVP";
+
+            if (e.PropertyName == "DeltaCarma")
+                e.Column.Header = "Карма";
         }
 
         private string lastinput = "";
