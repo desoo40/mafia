@@ -91,5 +91,10 @@ namespace mafiaWPF
                 playerNikCB.IsDropDownOpen = true;
             }
         }
+
+        private void CalcButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
