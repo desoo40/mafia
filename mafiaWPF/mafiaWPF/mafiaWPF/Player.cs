@@ -20,6 +20,7 @@ namespace mafiaWPF
         public WhoIs Type { get; set; }
         public bool Mvp { get; set; }
         public decimal DeltaCarma { get; set; }
+        public bool IsWinner { get; set; }
 
         public decimal MainRate;
         public decimal PowerRate;

@@ -25,8 +25,9 @@
         </DataGrid>
         <Button x:Name="CalcButton" Content="Посчитать" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" Width="121" Margin="364,10,0,30.6" Height="33" IsCancel="True" FontSize="18" Click="CalcButton_Click"/>
         <Label x:Name="label" Content="Кто победил?" HorizontalAlignment="Left" Margin="20,6,0,0" Grid.Row="3" VerticalAlignment="Top" FontSize="18"/>
-        <CheckBox x:Name="IsMafiaCheckBox" Content="Мафия" HorizontalAlignment="Left" Margin="185,0,0,0" Grid.Row="3" VerticalAlignment="Top" FontSize="16"/>
-        <CheckBox x:Name="IsCitizenCheckBox" Content="Мирные" HorizontalAlignment="Left" Margin="185,30,0,0" Grid.Row="3" VerticalAlignment="Top" RenderTransformOrigin="0.157,0.342" FontSize="16"/>
+        <CheckBox x:Name="IsMafiaCheckBox" Content="Мафия" HorizontalAlignment="Left" Margin="185,0,0,0" Grid.Row="3" VerticalAlignment="Top" FontSize="16" Checked="IsMafiaCheckBox_Checked"/>
+        <CheckBox x:Name="IsCitizenCheckBox" Content="Мирные" HorizontalAlignment="Left" Margin="185,30,0,0" Grid.Row="3" VerticalAlignment="Top" RenderTransformOrigin="0.157,0.342" FontSize="16" Checked="IsCitizenCheckBox_Checked"/>
+        <Button x:Name="button" Content="Тест" HorizontalAlignment="Left" Margin="433,22,0,0" VerticalAlignment="Top" Width="75" Grid.RowSpan="2" Click="button_Click"/>
 
     </Grid>
 </Window>
