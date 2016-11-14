@@ -80,28 +80,16 @@ namespace mafiaWPF
         }
 
         private string lastinput = "";
-        private void playerNikTB_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void playerNikCB_TextInput(object sender, TextCompositionEventArgs e)
+        private void playerNikCB_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (playerNikCB.Text == "") return;
 
-            //if (playerNikCB.Text == lastinput)
-            //{
-            //    lastinput = "";
-            //    return;
-            //}
-
-            //var player = AllPlayers.FirstOrDefault(p => p.Nick.ToLower().StartsWith(playerNikCB.Text.ToLower()));
-            //if (player != null)
-            //{
-            //    lastinput = playerNikCB.Text;
-            //    string addnick = player.Nick;
-            //    playerNikCB.SelectedText = addnick.Replace(lastinput, "");
-            //}
+            var players = AllPlayers.FindAll(p => p.Nick.ToLower().StartsWith(playerNikCB.Text.ToLower()));
+            if (players.Count>0)
+            {
+                playerNikCB.ItemsSource = players;
+                playerNikCB.IsDropDownOpen = true;
+            }
         }
     }
 }

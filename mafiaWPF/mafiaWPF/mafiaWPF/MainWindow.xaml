@@ -13,7 +13,7 @@
             <RowDefinition Height="195*"/>
             <RowDefinition Height="69*"/>
         </Grid.RowDefinitions>
-        <ComboBox x:Name="playerNikCB" HorizontalAlignment="Left" Height="23" Margin="20,0,0,0" Grid.Row="1"  VerticalAlignment="Center" Width="200"  IsEditable="True" TextInput="playerNikCB_TextInput"/>
+        <ComboBox x:Name="playerNikCB" HorizontalAlignment="Left" Height="23" Margin="20,0,0,0" Grid.Row="1"  VerticalAlignment="Center" Width="200"  IsEditable="True" TextBoxBase.TextChanged="playerNikCB_TextChanged" />
         <Button x:Name="addPlayerBtn" Content="Добавить в игру" HorizontalAlignment="Left" Margin="233,0,0,0" Grid.Row="1" VerticalAlignment="Center" Click="AddLayerBtn_Click"/>
         <DataGrid x:Name="playerDG" Grid.Row="2" Margin="20" CanUserAddRows="False" AutoGeneratingColumn="playerDG_AutoGeneratingColumn"  >
             <!--<DataGrid.Columns>
