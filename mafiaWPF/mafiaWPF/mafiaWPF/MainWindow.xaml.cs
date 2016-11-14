@@ -125,12 +125,47 @@ namespace mafiaWPF
                 return;
             }
 
+            if (IsCitizenCheckBox.IsChecked == true || IsMafiaCheckBox.IsChecked == true)
+            {
+                if (IsCitizenCheckBox.IsChecked == true && IsMafiaCheckBox.IsChecked == true)
+                {
+                    MessageBox.Show("Может победить лишь одна команда!");
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите победителей"); // сделать отмену выбранных победетелей с последующей отменой инициализации полей IsWinner
+                return;
+            }
+
             CalculateStat();
         }
 
         private void CalculateStat()
         {
+            var winner = IsCitizenCheckBox.IsChecked;
 
+            if (winner == true)
+            {
+                foreach (var currPlayer in CurrPlayers)
+                {
+                    if (currPlayer.Type != WhoIs.Мафия)
+                    {
+                        currPlayer.IsWinner = true;
+                    }
+                }
+            }
+            else
+            {
+                foreach (var currPlayer in CurrPlayers)
+                {
+                    if (currPlayer.Type == WhoIs.Мафия)
+                    {
+                        currPlayer.IsWinner = true;
+                    }
+                }
+            }
         }
 
         private int IsOneMvp()
@@ -189,6 +224,11 @@ namespace mafiaWPF
             {
                 CurrPlayers.Add(AllPlayers[i]);
             }
+
+            CurrPlayers[0].Type = WhoIs.Мафия;
+            CurrPlayers[1].Type = WhoIs.Мафия;
+            CurrPlayers[2].Type = WhoIs.Мафия;
+            CurrPlayers[3].Type = WhoIs.Комиссар;
         }
     }
 }
