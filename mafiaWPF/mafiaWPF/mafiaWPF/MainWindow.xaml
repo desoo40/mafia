@@ -1,0 +1,29 @@
+﻿<Window x:Class="mafiaWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:mafiaWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="195*"/>
+            <RowDefinition Height="69*"/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="playerNikTB" HorizontalAlignment="Left" Height="23" Margin="20,0,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="200" AutomationProperties.HelpText="Введите имя" TextChanged="playerNikTB_TextChanged"/>
+        <Button x:Name="addPlayerBtn" Content="Добавить в игру" HorizontalAlignment="Left" Margin="233,0,0,0" Grid.Row="1" VerticalAlignment="Center" Click="AddLayerBtn_Click"/>
+        <DataGrid x:Name="playerDG" Grid.Row="2" Margin="20" CanUserAddRows="False" AutoGeneratingColumn="playerDG_AutoGeneratingColumn"  >
+            <!--<DataGrid.Columns>
+                <DataGridTextColumn Header="Ник" Binding="{Binding Nick}"/>
+                <DataGridComboBoxColumn Header="Статус" ItemsSource="{Binding WhoIs}" SelectedItemBinding="{Binding Type}"/>
+                <DataGridCheckBoxColumn Header="Лучший" Binding="{Binding MVP}"/>
+                <DataGridTextColumn Header="Карма" Binding="{Binding Nick}"/>
+            </DataGrid.Columns>-->
+        </DataGrid>
+        <Button x:Name="button1" Content="Button" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="75"/>
+
+    </Grid>
+</Window>
