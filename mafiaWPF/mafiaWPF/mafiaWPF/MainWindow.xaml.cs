@@ -49,7 +49,7 @@ namespace mafiaWPF
         {
             Player currPlayer = null;
 
-            AllPlayers.FirstOrDefault(p => p.Nick == playerNikTB.Text);
+            AllPlayers.FirstOrDefault(p => p.Nick == playerNikCB.Text);
 
             return currPlayer;
         }
@@ -69,21 +69,26 @@ namespace mafiaWPF
         private string lastinput = "";
         private void playerNikTB_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(playerNikTB.Text == "") return;
+            
+        }
 
-            if (playerNikTB.Text == lastinput)
-            {
-                lastinput = "";
-                return;
-            }
+        private void playerNikCB_TextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (playerNikCB.Text == "") return;
 
-            var player = AllPlayers.FirstOrDefault(p => p.Nick.ToLower().StartsWith(playerNikTB.Text.ToLower()));
-            if (player != null)
-            {
-                lastinput = playerNikTB.Text;
-                string addnick = player.Nick;
-                playerNikTB.SelectedText = addnick.Replace(lastinput, "");
-            }
+            //if (playerNikCB.Text == lastinput)
+            //{
+            //    lastinput = "";
+            //    return;
+            //}
+
+            //var player = AllPlayers.FirstOrDefault(p => p.Nick.ToLower().StartsWith(playerNikCB.Text.ToLower()));
+            //if (player != null)
+            //{
+            //    lastinput = playerNikCB.Text;
+            //    string addnick = player.Nick;
+            //    playerNikCB.SelectedText = addnick.Replace(lastinput, "");
+            //}
         }
     }
 }
