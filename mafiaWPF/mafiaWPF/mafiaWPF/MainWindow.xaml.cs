@@ -42,15 +42,25 @@ namespace mafiaWPF
 
             var newPlayer = AddPlayerToCurr();
             
-            CurrPlayers.Add(newPlayer);
+            if (newPlayer != null)
+                CurrPlayers.Add(newPlayer);
         }
 
         private Player AddPlayerToCurr()
         {
             Player currPlayer = null;
 
-            AllPlayers.FirstOrDefault(p => p.Nick == playerNikTB.Text);
-
+            currPlayer = AllPlayers.FirstOrDefault(p => p.Nick == playerNikTB.Text);
+            if (currPlayer == null)
+            {
+                MessageBox.Show("Такого игрока нет в базе");
+                return null;
+            }
+            if (CurrPlayers.Contains(currPlayer))
+            {
+                MessageBox.Show("Уже добавили в игру");
+                return null;
+            }
             return currPlayer;
         }
 
@@ -66,24 +76,24 @@ namespace mafiaWPF
                 e.Column.Header = "MVP";
         }
 
-        private string lastinput = "";
-        private void playerNikTB_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if(playerNikTB.Text == "") return;
+        //private string lastinput = "";
+        //private void playerNikTB_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    if(playerNikTB.Text == "") return;
 
-            if (playerNikTB.Text == lastinput)
-            {
-                lastinput = "";
-                return;
-            }
+        //    if (playerNikTB.Text == lastinput)
+        //    {
+        //        lastinput = "";
+        //        return;
+        //    }
 
-            var player = AllPlayers.FirstOrDefault(p => p.Nick.ToLower().StartsWith(playerNikTB.Text.ToLower()));
-            if (player != null)
-            {
-                lastinput = playerNikTB.Text;
-                string addnick = player.Nick;
-                playerNikTB.SelectedText = addnick.Replace(lastinput, "");
-            }
-        }
+        //    var player = AllPlayers.FirstOrDefault(p => p.Nick.ToLower().StartsWith(playerNikTB.Text.ToLower()));
+        //    if (player != null)
+        //    {
+        //        lastinput = playerNikTB.Text;
+        //        string addnick = player.Nick;
+        //        playerNikTB.SelectedText = addnick.Replace(lastinput, "");
+        //    }
+        //}
     }
 }
