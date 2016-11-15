@@ -116,7 +116,7 @@ namespace mafiaWPF
                 return;
             }
 
-            int qtyMvp = IsOneMvp();
+            int qtyMvp = CurrPlayers.Count(currPlayer => currPlayer.Mvp);
 
             if (qtyMvp != 1)
             {
@@ -125,16 +125,17 @@ namespace mafiaWPF
                 return;
             }
 
-            if (IsCitizenCheckBox.IsChecked == true || IsMafiaCheckBox.IsChecked == true)
-            {
-                if (IsCitizenCheckBox.IsChecked == true && IsMafiaCheckBox.IsChecked == true)
-                {
-                    MessageBox.Show("Может победить лишь одна команда!");
-                    return;
-                }
-            }
-            else
-            {
+            //if (IsCitizenCheckBox.IsChecked == true || IsMafiaCheckBox.IsChecked == true)
+            //{
+            //    if (IsCitizenCheckBox.IsChecked == true && IsMafiaCheckBox.IsChecked == true)
+            //    {
+            //        MessageBox.Show("Может победить лишь одна команда!");
+            //        return;
+            //    }
+            //}
+            //else
+            if(IsCitizenCheckBox.IsChecked ==false && IsMafiaCheckBox.IsChecked == false)
+            { 
                 MessageBox.Show("Выберите победителей"); // сделать отмену выбранных победетелей с последующей отменой инициализации полей IsWinner
                 return;
             }
@@ -185,13 +186,13 @@ namespace mafiaWPF
             int cit = 0;
             int maf = 0;
 
-            for (int i = 0; i < CurrPlayers.Count; i++)
+            foreach (Player p in CurrPlayers)
             {
-                if (CurrPlayers[i].Type == WhoIs.Комиссар)
+                if (p.Type == WhoIs.Комиссар)
                     ++komm;
-                if (CurrPlayers[i].Type == WhoIs.Мафия)
+                if (p.Type == WhoIs.Мафия)
                     ++maf;
-                if (CurrPlayers[i].Type == WhoIs.Мирный)
+                if (p.Type == WhoIs.Мирный)
                     ++cit;
             }
 
@@ -229,6 +230,28 @@ namespace mafiaWPF
             CurrPlayers[1].Type = WhoIs.Мафия;
             CurrPlayers[2].Type = WhoIs.Мафия;
             CurrPlayers[3].Type = WhoIs.Комиссар;
+        }
+
+        private void DataGridCell_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+
+        {
+
+            DataGridCell cell = sender as DataGridCell;
+
+            if (!cell.IsEditing)
+
+            {
+                // enables editing on single click
+
+                if (!cell.IsFocused)
+
+                    cell.Focus();
+
+                if (!cell.IsSelected)
+
+                    cell.IsSelected = true;
+            }
+
         }
     }
 }
