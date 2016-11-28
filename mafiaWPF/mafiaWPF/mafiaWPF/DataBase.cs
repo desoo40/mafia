@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.OleDb;
+using System.Globalization;
 using System.Windows;
 
 namespace mafiaWPF
@@ -41,7 +43,7 @@ namespace mafiaWPF
             }
             catch (OleDbException ex)
             {
-                Console.WriteLine(ex.Message);
+                MessageBox.Show(ex.Message);
             }
 
             var players = new List<Player>();
@@ -55,11 +57,39 @@ namespace mafiaWPF
                 player._nick = reader["Ник"].ToString();
                 player.Name = reader["Имя"].ToString();
                 player.Surname = reader["Фамилия"].ToString();
-
-
+                player.Games = Convert.ToDecimal(reader["Количество Игр"].ToString());
+                player.Wins = Convert.ToDecimal(reader["Победы"].ToString());
                 players.Add(player);
             }
             return players;
+        }
+
+        public void Update(ObservableCollection<Player> currPlayers)
+        {
+            if (conn.State != ConnectionState.Open) return ;
+
+            OleDbCommand cmd = conn.CreateCommand();
+
+            foreach (var currPlayer in currPlayers)
+            {
+                decimal winProc = currPlayer.Wins / currPlayer.Games * 100;
+
+                cmd.CommandText = $"UPDATE Игроки SET [Рейтинг Силы] = {currPlayer.PowerRate.ToString("F2", CultureInfo.InvariantCulture)}, " +
+                                  $"[Общий Рейтинг] = {currPlayer.MainRate.ToString("F2", CultureInfo.InvariantCulture)}, " +
+                                  $"[Карма] = {currPlayer.Carma.ToString("F2", CultureInfo.InvariantCulture)}, " +
+                                  $"[Количество Игр] = {currPlayer.Games}, " +
+                                  $"[Победы] = {currPlayer.Wins}, " +
+                                  $"[Процент побед] = {winProc.ToString("F2", CultureInfo.InvariantCulture)} Where ID = {currPlayer.Id}";
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch (OleDbException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
     }
 }

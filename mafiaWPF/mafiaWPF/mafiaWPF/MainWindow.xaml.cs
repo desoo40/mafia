@@ -145,6 +145,60 @@ namespace mafiaWPF
 
         private void CalculateStat()
         {
+            WinnerLoserCheck();
+
+            decimal carmaKoef = 0.56M;
+            decimal gamesKoef = 0.87M;
+
+            var avgWinners = CurrPlayers.Where(p => p.IsWinner).Average(p => p.PowerRate);
+            var avgLosers = CurrPlayers.Where(p => !p.IsWinner).Average(p => p.PowerRate);
+
+            var deltaPowerRate = 0M;
+
+            if (avgWinners == 0)
+                deltaPowerRate = 60;
+            else
+                deltaPowerRate = (avgLosers / avgWinners) * 30; 
+
+            if (deltaPowerRate > 60)
+                deltaPowerRate = 60;
+            else if (deltaPowerRate < 15)
+                deltaPowerRate = 15;
+
+            foreach (var currPlayer in CurrPlayers)
+            {
+                if (currPlayer.IsWinner)
+                {
+                    if (currPlayer.Mvp)
+                        currPlayer.PowerRate += deltaPowerRate*2;
+                    else
+                        currPlayer.PowerRate += deltaPowerRate;
+
+                    ++currPlayer.Wins;
+                }
+
+                else
+                {
+                    if (currPlayer.Mvp)
+                        currPlayer.PowerRate += 30;
+                    else
+                        currPlayer.PowerRate -= deltaPowerRate;
+
+                    if (currPlayer.PowerRate < 0)
+                        currPlayer.PowerRate = 0;
+                }
+
+                currPlayer.Carma += currPlayer.DeltaCarma;
+                ++currPlayer.Games;
+
+                currPlayer.MainRate = currPlayer.PowerRate + currPlayer.Carma * carmaKoef + currPlayer.Games * gamesKoef;
+            }
+
+            DB.Update(CurrPlayers);
+        }
+
+        private void WinnerLoserCheck()
+        {
             var winner = IsCitizenCheckBox.IsChecked;
 
             if (winner == true)
