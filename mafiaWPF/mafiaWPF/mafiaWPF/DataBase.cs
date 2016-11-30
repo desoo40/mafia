@@ -24,7 +24,7 @@ namespace mafiaWPF
             }
             catch (Exception ex)
             {
-                MessageBox.Show("ХУЙ0");
+                MessageBox.Show("Нет базы данных");
                 return;
             }
         }
@@ -47,6 +47,7 @@ namespace mafiaWPF
             }
 
             var players = new List<Player>();
+
             while (reader.Read())
             {
                 var player = new Player();

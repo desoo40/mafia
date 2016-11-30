@@ -195,6 +195,15 @@ namespace mafiaWPF
             }
 
             DB.Update(CurrPlayers);
+            ClearStatus();
+        }
+
+        private void ClearStatus()
+        {
+            foreach (var currPlayer in CurrPlayers)
+            {
+                currPlayer.IsWinner = false;
+            }
         }
 
         private void WinnerLoserCheck()
@@ -261,16 +270,6 @@ namespace mafiaWPF
         private void OneTeamMessage()
         {
             MessageBox.Show("Лишь одна команда может выиграть...");
-        }
-
-        private void IsCitizenCheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void IsMafiaCheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
