@@ -80,7 +80,8 @@ namespace mafiaWPF
                                   $"[Карма] = {currPlayer.Carma.ToString("F2", CultureInfo.InvariantCulture)}, " +
                                   $"[Количество Игр] = {currPlayer.Games}, " +
                                   $"[Победы] = {currPlayer.Wins}, " +
-                                  $"[Процент побед] = {winProc.ToString("F2", CultureInfo.InvariantCulture)} Where ID = {currPlayer.Id}";
+                                  $"[Процент побед] = {winProc.ToString("F2", CultureInfo.InvariantCulture)}, " +
+                                  $"[Количество MVP] = {currPlayer.MVPQty.ToString("F2", CultureInfo.InvariantCulture)} Where ID = {currPlayer.Id}";
 
                 try
                 {

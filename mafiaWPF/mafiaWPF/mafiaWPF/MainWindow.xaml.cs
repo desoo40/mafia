@@ -125,15 +125,6 @@ namespace mafiaWPF
                 return;
             }
 
-            //if (IsCitizenCheckBox.IsChecked == true || IsMafiaCheckBox.IsChecked == true)
-            //{
-            //    if (IsCitizenCheckBox.IsChecked == true && IsMafiaCheckBox.IsChecked == true)
-            //    {
-            //        MessageBox.Show("Может победить лишь одна команда!");
-            //        return;
-            //    }
-            //}
-            //else
             if(IsCitizenCheckBox.IsChecked ==false && IsMafiaCheckBox.IsChecked == false)
             { 
                 MessageBox.Show("Выберите победителей"); // сделать отмену выбранных победетелей с последующей отменой инициализации полей IsWinner
@@ -147,8 +138,8 @@ namespace mafiaWPF
         {
             WinnerLoserCheck();
 
-            decimal carmaKoef = 0.56M;
-            decimal gamesKoef = 0.87M;
+            decimal carmaKoef = 0.25M;
+            decimal gamesKoef = 0.3M;
 
             var avgWinners = CurrPlayers.Where(p => p.IsWinner).Average(p => p.PowerRate);
             var avgLosers = CurrPlayers.Where(p => !p.IsWinner).Average(p => p.PowerRate);
@@ -170,7 +161,10 @@ namespace mafiaWPF
                 if (currPlayer.IsWinner)
                 {
                     if (currPlayer.Mvp)
+                    {
                         currPlayer.PowerRate += deltaPowerRate*2;
+                        ++currPlayer.MVPQty;
+                    }
                     else
                         currPlayer.PowerRate += deltaPowerRate;
 
@@ -180,7 +174,10 @@ namespace mafiaWPF
                 else
                 {
                     if (currPlayer.Mvp)
+                    {
                         currPlayer.PowerRate += 30;
+                        ++currPlayer.MVPQty;
+                    }
                     else
                         currPlayer.PowerRate -= deltaPowerRate;
 
@@ -195,7 +192,11 @@ namespace mafiaWPF
             }
 
             DB.Update(CurrPlayers);
+            AllPlayers = DB.GetPlayersFromDB();
             ClearStatus();
+
+            MessageBox.Show("База данных обновлена!");
+
         }
 
         private void ClearStatus()
@@ -232,17 +233,6 @@ namespace mafiaWPF
             }
         }
 
-        private int IsOneMvp()
-        {
-            int cnt = 0;
-            foreach (var currPlayer in CurrPlayers)
-            {
-                if (currPlayer.Mvp == true)
-                    ++cnt;
-            }
-            return cnt;
-        }
-
         private bool CorrectTypes()
         {
             int komm = 0;
@@ -267,24 +257,6 @@ namespace mafiaWPF
             return false;
         }
 
-        private void OneTeamMessage()
-        {
-            MessageBox.Show("Лишь одна команда может выиграть...");
-        }
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                CurrPlayers.Add(AllPlayers[i]);
-            }
-
-            CurrPlayers[0].Type = WhoIs.Мафия;
-            CurrPlayers[1].Type = WhoIs.Мафия;
-            CurrPlayers[2].Type = WhoIs.Мафия;
-            CurrPlayers[3].Type = WhoIs.Комиссар;
-        }
-
         private void DataGridCell_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 
         {
@@ -305,6 +277,30 @@ namespace mafiaWPF
                     cell.IsSelected = true;
             }
 
+        }
+
+        private void ClearButton_Click(object sender, RoutedEventArgs e)
+        {
+            CurrPlayers.Clear();
+        }
+
+        private void playerNikCB_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                AddLayerBtn_Click(sender, e);
+            }
+        }
+
+        private void playerDG_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                var currPlayer = AllPlayers.FirstOrDefault(p => p.Nick == playerDG.CurrentItem.ToString());
+
+                if (currPlayer != null)
+                    CurrPlayers.Remove(currPlayer);
+            }
         }
     }
 }

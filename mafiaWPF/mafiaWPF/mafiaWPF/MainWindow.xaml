@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:mafiaWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="386.3" Width="525"
+        Title="Mafia Calculator 1.0" Height="434.8" Width="525"
         >
     <Window.Resources>
         <Style TargetType="{x:Type DataGridCell}">
@@ -21,9 +21,9 @@
             <RowDefinition Height="195*"/>
             <RowDefinition Height="69*"/>
         </Grid.RowDefinitions>
-        <ComboBox x:Name="playerNikCB" HorizontalAlignment="Left" Height="23" Margin="20,6.6,0,10.4"  VerticalAlignment="Center" Width="200"  IsEditable="True" TextBoxBase.TextChanged="playerNikCB_TextChanged" Grid.Row="1" />
-        <Button x:Name="addPlayerBtn" Content="Добавить в игру" HorizontalAlignment="Left" Margin="279,6.6,0,10.4" VerticalAlignment="Center" Click="AddLayerBtn_Click" Height="23" Width="115" FontSize="14" Grid.Row="1"/>
-        <DataGrid x:Name="playerDG" Grid.Row="2" Margin="20" CanUserAddRows="False" AutoGeneratingColumn="playerDG_AutoGeneratingColumn" SelectionUnit="Cell"  >
+        <ComboBox x:Name="playerNikCB" HorizontalAlignment="Left" Height="23" Margin="20,7,0,10"  VerticalAlignment="Center" Width="200"  IsEditable="True" TextBoxBase.TextChanged="playerNikCB_TextChanged" Grid.Row="1" KeyUp="playerNikCB_KeyUp" />
+        <Button x:Name="addPlayerBtn" Content="Добавить в игру" HorizontalAlignment="Left" Margin="274,7,0,10" VerticalAlignment="Center" Click="AddLayerBtn_Click" Height="23" Width="114" FontSize="14" Grid.Row="1"/>
+        <DataGrid x:Name="playerDG" Grid.Row="2" Margin="20" CanUserAddRows="False" AutoGeneratingColumn="playerDG_AutoGeneratingColumn" SelectionUnit="Cell" KeyUp="playerDG_KeyUp"  >
             <!--<DataGrid.Columns>
                 <DataGridTextColumn Header="Ник" Binding="{Binding Nick}"/>
                 <DataGridComboBoxColumn Header="Статус" ItemsSource="{Binding WhoIs}" SelectedItemBinding="{Binding Type}"/>
@@ -35,9 +35,9 @@
         <Label x:Name="label" Content="Кто победил?" HorizontalAlignment="Left" Margin="20,6,0,0" Grid.Row="3" VerticalAlignment="Top" FontSize="18"/>
         <!--<CheckBox x:Name="IsMafiaCheckBox" Content="Мафия" HorizontalAlignment="Left" Margin="185,0,0,0" Grid.Row="3" VerticalAlignment="Top" FontSize="16" Checked="IsMafiaCheckBox_Checked" Width="82"/>
         <CheckBox x:Name="IsCitizenCheckBox" Content="Мирные" HorizontalAlignment="Left" Margin="185,30,0,0" Grid.Row="3" VerticalAlignment="Top" RenderTransformOrigin="0.157,0.342" FontSize="16" Checked="IsCitizenCheckBox_Checked"/>-->
-        <Button x:Name="button" Content="Тест" HorizontalAlignment="Left" Margin="433,22,0,0" VerticalAlignment="Top" Width="75" Grid.RowSpan="2" Click="button_Click"/>
         <RadioButton x:Name="IsMafiaCheckBox" Content="Мафия" HorizontalAlignment="Left" Margin="205,6,0,0" Grid.Row="3" VerticalAlignment="Top" FontSize="16"/>
         <RadioButton x:Name="IsCitizenCheckBox" Content="Мирные" HorizontalAlignment="Left" Margin="205,28,0,0" Grid.Row="3" VerticalAlignment="Top" FontSize="16"/>
+        <Button x:Name="ClearButton" Content="Очистить" HorizontalAlignment="Left" Margin="438,7,0,0" Grid.Row="1" VerticalAlignment="Top" Width="59" Background="#FFFF1616" Height="23" Click="ClearButton_Click"/>
 
     </Grid>
 </Window>
