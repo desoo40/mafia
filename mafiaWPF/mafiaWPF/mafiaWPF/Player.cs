@@ -4,7 +4,7 @@ namespace mafiaWPF
 {
     public class  Player
     {
-        public int Id;
+        public int Id { get; set; }
 
         public string Nick
         {

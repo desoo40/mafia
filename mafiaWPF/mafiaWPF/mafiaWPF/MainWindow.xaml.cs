@@ -72,6 +72,9 @@ namespace mafiaWPF
 
         private void playerDG_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
+            if (e.PropertyName == "Id")
+                e.Column.Header = "ID";
+
             if (e.PropertyName == "Nick")
                 e.Column.Header = "Ник";
 

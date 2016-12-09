@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.OleDb;
 using System.Globalization;
+using System.IO;
 using System.Windows;
 
 namespace mafiaWPF
@@ -14,6 +15,12 @@ namespace mafiaWPF
 
         public DataBase()
         {
+            if (!File.Exists("Mafia.accdb"))
+            {
+                MessageBox.Show("Нет файла базы данных");
+                return;
+            }
+
             string connetionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=Mafia.accdb;";
 
             conn = new OleDbConnection(connetionString);
