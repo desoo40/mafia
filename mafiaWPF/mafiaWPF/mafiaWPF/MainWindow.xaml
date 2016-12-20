@@ -22,7 +22,7 @@
             <RowDefinition Height="69*"/>
         </Grid.RowDefinitions>
         <ComboBox x:Name="playerNikCB" HorizontalAlignment="Left" Height="23" Margin="20,7,0,10"  VerticalAlignment="Center" Width="200"  IsEditable="True" TextBoxBase.TextChanged="playerNikCB_TextChanged" Grid.Row="1" KeyUp="playerNikCB_KeyUp" />
-        <Button x:Name="addPlayerBtn" Content="Добавить в игру" HorizontalAlignment="Left" Margin="274,7,0,10" VerticalAlignment="Center" Click="AddLayerBtn_Click" Height="23" Width="114" FontSize="14" Grid.Row="1"/>
+        <Button x:Name="addPlayerBtn" Content="Добавить в игру" HorizontalAlignment="Left" Margin="274,7,0,10" VerticalAlignment="Center" Click="AddPlayerBtn_Click" Height="23" Width="114" FontSize="14" Grid.Row="1"/>
         <DataGrid x:Name="playerDG" Grid.Row="2" Margin="20" CanUserAddRows="False" AutoGeneratingColumn="playerDG_AutoGeneratingColumn" SelectionUnit="Cell" KeyUp="playerDG_KeyUp"  >
             <!--<DataGrid.Columns>
                 <DataGridTextColumn Header="Ник" Binding="{Binding Nick}"/>

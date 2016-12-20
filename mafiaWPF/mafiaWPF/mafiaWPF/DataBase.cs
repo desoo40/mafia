@@ -11,7 +11,7 @@ namespace mafiaWPF
 {
     public class DataBase
     {
-        private OleDbConnection conn;
+        public OleDbConnection conn;
 
         public DataBase()
         {

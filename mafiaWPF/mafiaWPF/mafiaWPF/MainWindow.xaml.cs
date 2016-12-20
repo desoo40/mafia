@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,6 +31,8 @@ namespace mafiaWPF
             playerDG.ItemsSource = CurrPlayers;
 
             DB = new DataBase();
+            if (DB.conn == null || DB.conn.State != ConnectionState.Open)
+                Environment.Exit(0);
             AllPlayers = DB.GetPlayersFromDB();
         }
 
@@ -37,9 +41,8 @@ namespace mafiaWPF
 
         private DataBase DB;
 
-        private void AddLayerBtn_Click(object sender, RoutedEventArgs e)
+        private void AddPlayerBtn_Click(object sender, RoutedEventArgs e)
         {
-
             var newPlayer = AddPlayerToCurr();
             
             if (newPlayer != null)
@@ -55,8 +58,9 @@ namespace mafiaWPF
             }
 
             Player currPlayer = null;
+            var input = playerNikCB.Text;
 
-            currPlayer = AllPlayers.FirstOrDefault(p => p.Nick == playerNikCB.Text);
+            currPlayer = AllPlayers.FirstOrDefault(p => p.Nick == input || p.Id.ToString() == input);
             if (currPlayer == null)
             {
                 MessageBox.Show("Такого игрока нет в базе");
@@ -93,13 +97,34 @@ namespace mafiaWPF
 
         private void playerNikCB_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (playerNikCB.Text == "") return;
-
-            var players = AllPlayers.FindAll(p => p.Nick.ToLower().StartsWith(playerNikCB.Text.ToLower()));
-            if (players.Count>0)
+            if (playerNikCB.Text == "")
             {
+                playerNikCB.IsDropDownOpen = false;
+                playerNikCB.ItemsSource = null;
+                return;
+            }
+
+            var players = AllPlayers.FindAll(p =>
+            p.Id.ToString() == playerNikCB.Text || 
+            p.Nick.ToLower().StartsWith(playerNikCB.Text.ToLower()));
+
+            if (players.Count ==0)
+            {
+                playerNikCB.IsDropDownOpen = false;
+                playerNikCB.ItemsSource = null;
+            }
+            else
+            {
+                //bool clearselect = false;
+
                 playerNikCB.ItemsSource = players;
-                playerNikCB.IsDropDownOpen = true;
+                //if (!playerNikCB.IsDropDownOpen) clearselect = true;
+                //playerNikCB.IsDropDownOpen = true;
+                //if (clearselect)
+                //{
+                //    var edit = (TextBox) playerNikCB.Template.FindName("PART_EditableTextBox", playerNikCB);
+                //    edit.SelectedText = null;
+                //}
             }
         }
 
@@ -309,7 +334,7 @@ namespace mafiaWPF
         {
             if (e.Key == Key.Enter)
             {
-                AddLayerBtn_Click(sender, e);
+                AddPlayerBtn_Click(sender, e);
             }
         }
 
