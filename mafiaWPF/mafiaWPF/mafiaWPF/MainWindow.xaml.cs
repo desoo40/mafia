@@ -161,8 +161,26 @@ namespace mafiaWPF
 
             foreach (var currPlayer in CurrPlayers)
             {
+                if (currPlayer.Type == WhoIs.Мафия)
+                    ++currPlayer.Mafia;
+
+                if (currPlayer.Type == WhoIs.Мирный)
+                    ++currPlayer.Citizen;
+
+                if (currPlayer.Type == WhoIs.Комиссар)
+                    ++currPlayer.Comiss;
+
                 if (currPlayer.IsWinner)
                 {
+                    if (currPlayer.Type == WhoIs.Мафия)
+                        ++currPlayer.WinsMafia;
+
+                    if (currPlayer.Type == WhoIs.Мирный)
+                        ++currPlayer.WinsCitizen;
+
+                    if (currPlayer.Type == WhoIs.Комиссар)
+                        ++currPlayer.WinsComiss;
+
                     if (currPlayer.Mvp)
                     {
                         currPlayer.PowerRate += deltaPowerRate*2;

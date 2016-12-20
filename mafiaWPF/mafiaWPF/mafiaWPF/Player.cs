@@ -30,6 +30,12 @@ namespace mafiaWPF
         public string _nick;
         public decimal Games;
         public decimal Wins;
+        public decimal Mafia;
+        public decimal WinsMafia;
+        public decimal Comiss;
+        public decimal WinsComiss;
+        public decimal Citizen;
+        public decimal WinsCitizen;
         public decimal MVPQty;
 
         public override string ToString()

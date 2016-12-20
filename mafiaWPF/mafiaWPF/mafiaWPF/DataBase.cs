@@ -67,6 +67,13 @@ namespace mafiaWPF
                 player.Surname = reader["Фамилия"].ToString();
                 player.Games = Convert.ToDecimal(reader["Количество Игр"].ToString());
                 player.Wins = Convert.ToDecimal(reader["Победы"].ToString());
+                player.Mafia = Convert.ToDecimal(reader["Мафия"].ToString());
+                player.Comiss = Convert.ToDecimal(reader["Комиссар"].ToString());
+                player.Citizen = Convert.ToDecimal(reader["Мирный"].ToString());
+                player.WinsMafia = Convert.ToDecimal(reader["Побед за мафию"].ToString());
+                player.WinsComiss = Convert.ToDecimal(reader["Побед за комиссара"].ToString());
+                player.WinsCitizen = Convert.ToDecimal(reader["Побед за мирных"].ToString());
+
                 players.Add(player);
             }
             return players;
@@ -81,6 +88,10 @@ namespace mafiaWPF
             foreach (var currPlayer in currPlayers)
             {
                 decimal winProc = currPlayer.Wins / currPlayer.Games * 100;
+                decimal winMaf = currPlayer.WinsMafia / currPlayer.Mafia * 100;
+                decimal winCom = currPlayer.WinsComiss / currPlayer.Comiss * 100;
+                decimal winCit = currPlayer.WinsCitizen / currPlayer.Citizen * 100;
+
 
                 cmd.CommandText = $"UPDATE Игроки SET [Рейтинг Силы] = {currPlayer.PowerRate.ToString("F2", CultureInfo.InvariantCulture)}, " +
                                   $"[Общий Рейтинг] = {currPlayer.MainRate.ToString("F2", CultureInfo.InvariantCulture)}, " +
@@ -88,7 +99,16 @@ namespace mafiaWPF
                                   $"[Количество Игр] = {currPlayer.Games}, " +
                                   $"[Победы] = {currPlayer.Wins}, " +
                                   $"[Процент побед] = {winProc.ToString("F2", CultureInfo.InvariantCulture)}, " +
-                                  $"[Количество MVP] = {currPlayer.MVPQty.ToString("F2", CultureInfo.InvariantCulture)} Where ID = {currPlayer.Id}";
+                                  $"[Количество MVP] = {currPlayer.MVPQty.ToString("F2", CultureInfo.InvariantCulture)} Where ID = {currPlayer.Id}" +
+                                  $"[Мафия] = {currPlayer.Mafia}, " +
+                                  $"[Мирный] = {currPlayer.Citizen}, " +
+                                  $"[Комиссар] = {currPlayer.Comiss}, " +
+                                  $"[Побед за мафию] = {currPlayer.WinsMafia}," +
+                                  $"[Побед за комиссара] = {currPlayer.WinsComiss}, " +
+                                  $"[Побед за мирных] = {currPlayer.WinsCitizen}, " +
+                                  $"[% Мафия] = {winMaf}," +
+                                  $"[% Мирный] = {winCit}, " +
+                                  $"[% Комиссар] = {winCom}";
 
                 try
                 {
